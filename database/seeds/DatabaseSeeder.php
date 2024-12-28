@@ -1,0 +1,116 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {   
+        $this->call(Ref_Agama::class);
+        $this->call(Ref_Aktiviti::class);
+        $this->call(Ref_Aktiviti_Agenda_Kerja::class);
+        $this->call(Ref_Aktiviti_Bahagian::class);
+        $this->call(Ref_Aktiviti_Bidang::class);
+        $this->call(Ref_Aktiviti_PMK::class);
+        $this->call(Ref_Aktiviti_Strategi::class);
+        $this->call(Ref_Aktiviti_Sub::class);
+        $this->call(Ref_Aktiviti_Sub_Bidang::class);
+        $this->call(Ref_Aktiviti_Sumber_Kewangan::class);
+        $this->call(Ref_Aktiviti_Teras::class);
+        $this->call(RefBandar::class);
+        $this->call(RefDaerah::class);
+        $this->call(RefDUN::class);
+        $this->call(Ref_Fungsi_Koperasi::class);
+        $this->call(RefJantina::class);
+        $this->call(Ref_Jawatan_Ajk_Cawangan::class);
+        $this->call(Ref_Jawatan_Ajk_KRT::class);
+        $this->call(RefJenayah::class);
+        $this->call(Ref_Jenis_Aktiviti::class);
+        $this->call(RefJenisKabin::class);
+        $this->call(RefJenisKewangan::class);
+        $this->call(RefJenisPertubuhan::class);
+        $this->call(RefJenisPremis::class);
+        $this->call(RefJenisRumah::class);
+        $this->call(RefKaum::class);
+        $this->call(Ref_Kelompok_Umur::class);
+        $this->call(RefKemudahanAwam::class);
+        $this->call(Ref_KRT_Cawangan::class);
+        $this->call(Ref_Krt_Tujuan_Pembatalan::class);
+        $this->call(RefMasalahSosial::class);
+        $this->call(RefParlimen::class);
+        $this->call(RefPBT::class);
+        $this->call(RefPendidikan::class);
+        $this->call(RefPertanian::class);
+        $this->call(Ref_Penganjur::class);
+        $this->call(RefProfession::class);
+        $this->call(Ref_Rakan_Perpaduan::class);
+        $this->call(RefRolesMenu::class);
+        $this->call(RefRolesUser::class);
+        $this->call(Ref_SPK_iKes_AT_Jenis::class);
+        $this->call(Ref_SPK_Ikes_Kluster::class);
+        $this->call(Ref_SPK_Ikes_Sub_Kluster::class);
+        $this->call(Ref_SPK_Ikes_Terlibat::class);
+        $this->call(Ref_SPK_Ikes_Tindakan::class);
+        $this->call(Ref_Spk_Kategori_Kes::class);
+        $this->call(Ref_SPK_MKP_Kategori::class);
+        $this->call(Ref_SPK_MKP_Kategori_Kursus::class);
+        $this->call(Ref_SPK_MKP_Mediasi::class);
+        $this->call(Ref_SPK_MKP_Mediasi_Status::class);
+        $this->call(Ref_SPK_MKP_Peringkat::class);
+        $this->call(Ref_SPK_MKP_Peringkat_Kursus::class);
+        $this->call(Ref_SPK_MKP_Tahap::class);
+        $this->call(Ref_Spk_Peringkat_Kes::class);
+        $this->call(Ref_Spk_Sub_Kategori_Kes::class);
+        $this->call(Ref_SRS_Dirujuk_Kes::class);
+        $this->call(Ref_SRS_Jenis_Kes::class);
+        $this->call(Ref_SRS_Kategori_Kes::class);
+        $this->call(RefStates::class);
+        $this->call(Ref_Status_Aktiviti::class);  
+        $this->call(RefStatusBagunan::class);  
+        $this->call(Ref_Status_Status_Etnik::class); 
+        $this->call(Ref_Status_Isu_Lokasi_Kanta_Komuniti::class);  
+        $this->call(Ref_Status_Kanta_Komuniti::class);
+        $this->call(RefStatusKrt::class);
+        $this->call(RefStatusKrtAjk::class);
+        $this->call(Ref_Status_KRT_AJK_Cawangan::class);
+        $this->call(Ref_Status_KRT_AJK_Luar::class);
+        $this->call(RefStatusKrtKewangan::class);
+        $this->call(Ref_Status_Krt_Koperasi::class);
+        $this->call(Ref_Status_Krt_Koperasi_Keaktifan::class);
+        $this->call(RefStatusKrtMinitMesyuarat::class);
+        $this->call(Ref_Status_Krt_Pelaksanaan_Projek::class);
+        $this->call(Ref_Status_Krt_Pembatalan::class);
+        $this->call(Ref_Status_Krt_Projek_Ekonomi::class);
+        $this->call(Ref_Status_Krt_Projek_Ekonomi_ST::class);
+        $this->call(Ref_Status_Krt_Sekala_Projek::class);
+        $this->call(Ref_Status_Krt_Skuad_Uniti::class);
+        $this->call(Ref_Status_Masalah_Kanta_komuniti::class);
+        $this->call(Ref_Status_Pekerjaan::class);
+        $this->call(Ref_Status_Pelaksanaan_SRS::class);
+        $this->call(RefStatusPengesahanNama::class);
+        $this->call(Ref_Status_Perkahwinan::class);
+        $this->call(Ref_Status_Rondaan_SRS::class);
+        $this->call(Ref_Status_SPK_Ikes::class);
+        $this->call(Ref_Status_SPK_imediator::class);
+        $this->call(Ref_Status_SPK_imediator_Keaktifan::class);
+        $this->call(Ref_Status_SPK_Imediator_Mediasi::class);
+        $this->call(Ref_Status_SPK_imuhibbah::class);
+        $this->call(RefStatusSRS::class);
+        $this->call(RefStatusSRSAhliPeronda::class);
+        $this->call(Ref_Status_SRS_Pembatalan_Srs::class);
+        $this->call(Ref_Status_SRS_Penarikan_Diri::class);
+        $this->call(Ref_Status_Tbk::class);
+        $this->call(Ref_Status_Tbk_Student::class);
+        $this->call(Ref_Status_Warganegara::class);
+        $this->call(Ref_Sumbangan::class);
+        $this->call(Ref_Tbk_Pengesahan_Penjaga::class);
+        $this->call(User::class);
+        $this->call(UserProfile::class);
+        
+    }
+}
