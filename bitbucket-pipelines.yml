@@ -1,0 +1,10 @@
+# Example
+pipelines:
+  default:
+      - step:
+          runs-on: self.hosted
+          name: 'Deployment to Staging'
+          deployment: staging
+          script:
+            - echo "Your deployment to staging script goes here..."
+            
