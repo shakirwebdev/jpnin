@@ -1,0 +1,325 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Redirect, Response;
+use Auth;
+use Validator;
+use Session;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
+
+use DataTables;
+use DB;
+
+
+
+class DashboardController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    function index(Request $request){
+      if($request->ajax()){ 
+          $type = $request->type;
+          
+      } else {
+          $roles_menu = DB::table('roles__menu')
+                ->select('roles__menu.id AS id',
+                'users__menu.menu_id AS first_menu',
+                'users__menu.menu2nd_id AS second_menu',
+                'users__menu.users_menu_page_name AS nama_menu',
+                'users__menu.users_menu_file_url AS menu_url',
+                'users__menu.highlight AS highlight_menu',
+                'users__menu.users_menu_page_icon AS icon_menu')
+                ->leftJoin('users__menu','users__menu.id','=','roles__menu.users_menu_id')
+                ->leftJoin('users__roles','users__roles.role_id','=','roles__menu.role_id')
+                ->where('users__roles.user_id', '=', Auth::user()->user_id)
+                ->where('roles__menu.status', '=', true)
+                ->orderBy('first_menu', 'asc')
+                ->orderBy('id', 'asc')
+                ->get();
+        $role_users  = DB::table('users__roles')
+                        ->select('users__roles.user_id',
+                        DB::raw("CASE WHEN users__roles.role_id >= 18 AND users__roles.role_id <= 25 THEN '1' ELSE '0' END AS role_users"))
+                        ->where('users__roles.user_id', '=', Auth::user()->user_id)  
+                        ->orderBy('users__roles.role_id', 'Desc')
+                        ->limit(1)
+                        ->first();
+        $total_ikes  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_ikes"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->limit(1)
+                        ->first();
+        $total_iramal   = DB::table('spk__imuhibbah')
+                        ->select(
+                        DB::raw("count(*) as total_iramal"))
+                        ->where('spk__imuhibbah.status', '=', '1')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp      = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp"))
+                        ->where('spk__imediator.status', '=', '1')  
+                        ->limit(1)
+                        ->first();
+        $total_mediasi  = DB::table('spk__imediator_mediasi')
+                        ->select(
+                        DB::raw("count(*) as total_mediasi"))
+                        ->where('spk__imediator_mediasi.status', '=', '1')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_1  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_1"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '01')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_2  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_2"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '02')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_3  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_3"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '03')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_4  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_4"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '04')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_5  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_5"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '05')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_6  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_6"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '06')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_7  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_7"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '07')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_8  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_8"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '08')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_9  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_9"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '09')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_10  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_10"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '10')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_11  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_11"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '11')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_12  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_12"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '12')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_13  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_13"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '13')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_14  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_14"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '14')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_15  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_15"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '15')  
+                        ->limit(1)
+                        ->first();
+        $total_kes_s_16  = DB::table('spk__ikes')
+                        ->select(
+                        DB::raw("count(*) as total_kes_s_16"))
+                        ->where('spk__ikes.status', '=', '1')  
+                        ->where('spk__ikes.state_id', '=', '16')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_1  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_1"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '01')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_2  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_2"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '02')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_3  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_3"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '03')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_4  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_4"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '04')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_5  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_5"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '05')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_6  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_6"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '06')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_7  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_7"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '07')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_8  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_8"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '08')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_9  = DB::table('spk__imediator')
+                        ->select( DB::raw("count(*) as total_mkp_s_9"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '09')
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_10  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_10"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '10')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_11  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_11"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '11')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_12  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_12"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '12')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_13  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_13"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '13')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_14  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_14"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '14')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_15  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_15"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '15')  
+                        ->limit(1)
+                        ->first();
+        $total_mkp_s_16  = DB::table('spk__imediator')
+                        ->select(
+                        DB::raw("count(*) as total_mkp_s_16"))
+                        ->leftJoin('users__profile','users__profile.user_id','=','spk__imediator.user_id')
+                        ->where('spk__imediator.status', '=', '1')
+                        ->where('users__profile.state_id', '=', '16')  
+                        ->limit(1)
+                        ->first();
+        return view('dashboard.index',compact('roles_menu','role_users','total_ikes', 'total_iramal', 'total_mkp', 'total_mediasi', 
+        'total_kes_s_1', 'total_kes_s_2', 'total_kes_s_3', 'total_kes_s_4' , 'total_kes_s_5', 'total_kes_s_6', 'total_kes_s_7', 'total_kes_s_8', 'total_kes_s_9', 'total_kes_s_10', 'total_kes_s_11', 'total_kes_s_12', 
+        'total_kes_s_13', 'total_kes_s_14', 'total_kes_s_15', 'total_kes_s_16', 
+        'total_mkp_s_1', 'total_mkp_s_2', 'total_mkp_s_3', 'total_mkp_s_4', 'total_mkp_s_5', 'total_mkp_s_6', 'total_mkp_s_7', 'total_mkp_s_8', 'total_mkp_s_9', 'total_mkp_s_10', 'total_mkp_s_11', 'total_mkp_s_12', 
+        'total_mkp_s_13', 'total_mkp_s_14', 'total_mkp_s_15', 'total_mkp_s_16'));
+      }
+    }
+
+    
+    
+}
