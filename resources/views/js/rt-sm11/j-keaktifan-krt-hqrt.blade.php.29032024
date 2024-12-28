@@ -1,0 +1,581 @@
+@section('page-script')
+<script type="text/javascript" src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">    
+    
+	$(document).ready( function () {
+	
+		var curr_year = new Date().getFullYear();
+		$('#kkhq_tahun').val(curr_year);
+
+		//my custom script
+		var senarai_keaktifan_krt_config = {
+			routes: {
+				senarai_keaktifan_krt_url: "/rt/sm11/keaktifan-krt-hqrt"
+			}
+		};
+
+        $("#kkhq_state_id").on( 'change', function () {
+            var value = $(this).find('option:selected').val();
+            var selectedIndex = $(this).find('option:selected').index();
+            $('#kkhq_daerah_id').find('option').remove();
+            $('#kkhq_daerah_id').prop("disabled", false);
+			$('#kkhq_parlimen_id').find('option').remove();
+            $('#kkhq_parlimen_id').prop("disabled", false);
+			$('#kkhq_dun_id').find('option').remove();
+            $('#kkhq_dun_id').prop("disabled", false);
+			$('#kkhq_krt_id').find('option').remove();
+            $('#kkhq_krt_id').prop("disabled", false);
+            if (selectedIndex !== '0') {
+                $.ajax({
+                    type: "GET",
+                    url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+                    data: {type: 'get_daerah', value: value},
+                    success: function (data) {
+                        $('#kkhq_daerah_id').append($('<option>').text('-- Sila Pilih --').attr('value', ''));
+                        $.each(data,function(key, obj) 
+                        {
+                            $('#kkhq_daerah_id')
+                            .append($('<option>')
+                            .text(obj.daerah_description)
+                            .attr('value', obj.daerah_id));
+                        });
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                }); 
+				$.ajax({
+                    type: "GET",
+                    url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+                    data: {type: 'get_parlimen', value: value},
+                    success: function (data) {
+                        $('#kkhq_parlimen_id').append($('<option>').text('-- Sila Pilih --').attr('value', ''));
+                        $.each(data,function(key, obj) 
+                        {
+                            $('#kkhq_parlimen_id')
+                            .append($('<option>')
+                            .text(obj.parlimen_description)
+                            .attr('value', obj.parlimen_id));
+                        });
+						$.fn.myfunction();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                }); 
+            }
+        });
+
+        $("#kkhq_daerah_id").on( 'change', function () {
+            var value = $(this).find('option:selected').val();
+            var selectedIndex = $(this).find('option:selected').index();
+            $('#kkhq_krt_id').find('option').remove();
+            $('#kkhq_krt_id').prop("disabled", false);
+            if (selectedIndex !== '0') {
+                $.ajax({
+                    type: "GET",
+                    url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+                    data: {type: 'get_krt', value: value},
+                    success: function (data) {
+                        $('#kkhq_krt_id').append($('<option>').text('-- Sila Pilih --').attr('value', ''));
+                        $.each(data,function(key, obj) 
+                        {
+                            $('#kkhq_krt_id')
+                            .append($('<option>')
+                            .text(obj.krt_nama)
+                            .attr('value', obj.id));
+                        });
+						$.fn.myfunction();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                }); 
+            }
+        });
+		
+		$("#kkhq_parlimen_id").on( 'change', function () {
+            var value = $(this).find('option:selected').val();
+            var selectedIndex = $(this).find('option:selected').index();
+            $('#kkhq_dun_id').find('option').remove();
+            $('#kkhq_dun_id').prop("disabled", false);
+            if (selectedIndex !== '0') {
+                $.ajax({
+                    type: "GET",
+                    url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+                    data: {type: 'get_dun', value: value},
+                    success: function (data) {
+                        $('#kkhq_dun_id').append($('<option>').text('-- Sila Pilih --').attr('value', ''));
+                        $.each(data,function(key, obj) 
+                        {
+                            $('#kkhq_dun_id')
+                            .append($('<option>')
+                            .text(obj.dun_description)
+                            .attr('value', obj.dun_id));
+                        });
+						$.fn.myfunction();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                }); 
+            }
+        });
+		
+		$("#kkhq_dun_id").on( 'change', function () {
+            var value = $(this).find('option:selected').val();
+            var selectedIndex = $(this).find('option:selected').index();
+            $('#kkhq_krt_id').find('option').remove();
+            $('#kkhq_krt_id').prop("disabled", false);
+            if (selectedIndex !== '0') {
+                $.ajax({
+                    type: "GET",
+                    url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+                    data: {type: 'get_krt', value: value},
+                    success: function (data) {
+                        $('#kkhq_krt_id').append($('<option>').text('-- Sila Pilih --').attr('value', ''));
+                        $.each(data,function(key, obj) 
+                        {
+                            $('#kkhq_krt_id')
+                            .append($('<option>')
+                            .text(obj.dun_description)
+                            .attr('value', obj.dun_id));
+                        });
+						$.fn.myfunction();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                }); 
+            }
+        });
+
+        $("#kkhq_krt_id").on( 'change', function () {
+            //senarai_keaktifan_krt.search( $(this).val() ).draw();
+			$.fn.myfunction();
+        });
+		
+		$("#kkhq_tahun").on( 'change', function () {
+            //senarai_keaktifan_krt.search( $(this).val() ).draw();
+			$.fn.myfunction();
+        });
+
+		$v_markah_profile = 0;
+		$.fn.myfunction = function() {
+      		$v_state=$('#kkhq_state_id').val(); 
+			$v_parlimen=$('#kkhq_parlimen_id').val();
+			$v_daerah=$('#kkhq_daerah_id').val();
+			$v_dun=$('#kkhq_dun_id').val();
+			$v_krt=$('#kkhq_krt_id').val();
+			$v_tahun=$('#kkhq_tahun').val();
+			//$('#senarai_keaktifan_krt').dataTable().fnClearTable();
+    		$('#senarai_keaktifan_krt').dataTable().fnDestroy();
+			senarai_keaktifan_krt = $('#senarai_keaktifan_krt').DataTable( {
+				processing: true,
+				serverSide: true,
+				ajax: {
+						url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+						data: {negeri: $('#kkhq_state_id').val(), parlimen: $('#kkhq_parlimen_id').val(), dun: $('#kkhq_dun_id').val(),daerah: $('#kkhq_daerah_id').val(), krt: $('#kkhq_krt_id').val(), tahun: $('#kkhq_tahun').val()},
+						error:function(x,e) 
+						{
+								if (x.status==0) {
+									alert('You are offline!!\n Please Check Your Network.');
+								} else if(x.status==404) {
+									alert('Requested URL not found.');
+								} else if(x.status==500) {
+									alert('Internel Server Error.'+x.responseText);
+								} else if(e=='parsererror') {
+									alert('Error.\nParsing JSON Request failed.');
+								} else if(e=='timeout'){
+									alert('Request Time out.');
+								} else {
+									alert('Unknow Error.\n'+x.responseText);
+								}
+						}
+					},
+				"language": 
+				{
+					"paginate": 
+					{
+						"previous": "Sebelumnya",
+						"next": "Seterusnya",
+						searchPanes: 
+						{
+							emptyPanes: 'There are no panes to display. :/'
+						}
+					},
+					"sSearch": "Carian",
+					"sLengthMenu": "Paparan _MENU_ rekod",
+					"lengthMenu": "Paparan _MENU_ rekod setiap laman",
+					"zeroRecords": "Tiada rekod ditemui",
+					"info": "Paparan laman _PAGE_ dari _PAGES_ daripada _TOTAL_ rekod",
+					"infoEmpty": "",
+					"infoFiltered": "(diisih dari _MAX_ keseluruhan rekod)"
+				},
+				dom: 'rtip',
+				"bFilter": true,
+				"bSort": false,
+				responsive: true,
+				"aoColumnDefs":[{          
+					"aTargets": [ 0 ], 
+					"width": "4%", 
+					sClass: 'text-center',
+					"mRender": function (data, type, full, meta)  {
+						return  meta.row+1;
+					}
+				},{          
+					"aTargets": [ 1 ],  
+					"mRender": function ( value, type, full )  {
+						return full.negeri;
+					}
+				},{          
+					"aTargets": [ 2 ],  
+					"mRender": function ( value, type, full )  {
+						return full.daerah;
+					}
+				},{          
+					"aTargets": [ 3 ], 
+					"mRender": function ( value, type, full )  {
+						return full.nama_krt;
+					}
+				},{          
+					"aTargets": [ 4 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						return full.no_rujukan_krt;
+					}
+				 },{          
+					"aTargets": [ 5 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						$v_markah_profile = full.markah_latar + full.markah_penduduk + full.markah_pekerjaan + full.markah_rumah +  full.markah_pertubuhan + full.markah_kemudahan + full.markah_sosial + full.markah_tempat_krt + full.markah_profil_peta; 
+						if($v_markah_profile == null)
+							return '0%';
+						else
+							return $v_markah_profile+'%';
+					}
+				},{          
+					"aTargets": [ 6 ],  
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_ajk == null)
+							return '0%';
+						else
+							return parseFloat(full.markah_ajk).toFixed(1)+'%';
+					}
+				},{          
+					"aTargets": [ 7 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_aktiviti == null)
+							return 0;
+						else
+							return full.markah_aktiviti+'%';
+					}
+				},{          
+					"aTargets": [ 8 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_mesyuarat == null)
+							return 0;
+						else
+							return full.markah_mesyuarat+'%';
+					}
+				},{          
+					"aTargets": [ 9 ],  
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_kewangan == null)
+							return 0;
+						else
+							return full.markah_kewangan+'%';
+					}
+				},{          
+					"aTargets": [ 10 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.keaktifan_markah == null)
+							return 0;
+						else
+							return full.keaktifan_markah+'%';
+					}
+				},{          
+					"aTargets": [ 11 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						let va = parseFloat($v_markah_profile);
+						let vb = parseFloat(full.markah_ajk);
+						let vc = parseFloat(full.markah_aktiviti);
+						let vd = parseFloat(full.markah_mesyuarat);
+						let ve = parseFloat(full.markah_kewangan);
+						let vf = parseFloat(full.keaktifan_markah);
+						return (va + vb + vc + vd + ve + vf).toFixed(1) + '%';
+					}
+				},{          
+					"aTargets": [ 12 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						return full.status;
+					}
+				}],
+				"order": [[ 0, 'asc' ]],
+				initComplete: function () {
+					$('[data-toggle="tooltip"]').tooltip();
+				}
+			}).ajax.reload();;
+   		}; 
+		
+		$v_markah_profile = 0;
+        var senarai_keaktifan_krt = $('#senarai_keaktifan_krt').DataTable( {
+				processing: true,
+				serverSide: true,
+				ajax: {
+						url: senarai_keaktifan_krt_config.routes.senarai_keaktifan_krt_url,
+						data: {negeri: $('#kkhq_state_id').val(), parlimen: $('#kkhq_parlimen_id').val(), dun: $('#kkhq_dun_id').val(),daerah: $('#kkhq_daerah_id').val(), krt: $('#kkhq_krt_id').val(), tahun: $('#kkhq_tahun').val()},
+						error:function(x,e) 
+						{
+								if (x.status==0) {
+									alert('You are offline!!\n Please Check Your Network.');
+								} else if(x.status==404) {
+									alert('Requested URL not found.');
+								} else if(x.status==500) {
+									alert('Internel Server Error.'+x.responseText);
+								} else if(e=='parsererror') {
+									alert('Error.\nParsing JSON Request failed.');
+								} else if(e=='timeout'){
+									alert('Request Time out.');
+								} else {
+									alert('Unknow Error.\n'+x.responseText);
+								}
+						}
+					},
+				"language": 
+				{
+					"paginate": 
+					{
+						"previous": "Sebelumnya",
+						"next": "Seterusnya",
+						searchPanes: 
+						{
+							emptyPanes: 'There are no panes to display. :/'
+						}
+					},
+					"sSearch": "Carian",
+					"sLengthMenu": "Paparan _MENU_ rekod",
+					"lengthMenu": "Paparan _MENU_ rekod setiap laman",
+					"zeroRecords": "Tiada rekod ditemui",
+					"info": "Paparan laman _PAGE_ dari _PAGES_ daripada _TOTAL_ rekod",
+					"infoEmpty": "",
+					"infoFiltered": "(diisih dari _MAX_ keseluruhan rekod)"
+				},
+				dom: 'rtip',
+				"bFilter": true,
+				"bSort": false,
+				responsive: true,
+				"aoColumnDefs":[{          
+					"aTargets": [ 0 ], 
+					"width": "4%", 
+					sClass: 'text-center',
+					"mRender": function (data, type, full, meta)  {
+						return  meta.row+1;
+					}
+				},{          
+					"aTargets": [ 1 ],  
+					"mRender": function ( value, type, full )  {
+						return full.negeri;
+					}
+				},{          
+					"aTargets": [ 2 ],  
+					"mRender": function ( value, type, full )  {
+						return full.daerah;
+					}
+				},{          
+					"aTargets": [ 3 ], 
+					"mRender": function ( value, type, full )  {
+						return full.nama_krt;
+					}
+				},{          
+					"aTargets": [ 4 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						return full.no_rujukan_krt;
+					}
+				 },{          
+					"aTargets": [ 5 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						$v_markah_profile = full.markah_latar + full.markah_penduduk + full.markah_pekerjaan + full.markah_rumah +  full.markah_pertubuhan + full.markah_kemudahan + full.markah_sosial + full.markah_tempat_krt + full.markah_profil_peta; 
+						if($v_markah_profile == null)
+							return '0%';
+						else
+							return $v_markah_profile+'%';
+					}
+				},{          
+					"aTargets": [ 6 ],  
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_ajk == null)
+							return '0%';
+						else
+							return parseFloat(full.markah_ajk).toFixed(1)+'%';
+					}
+				},{          
+					"aTargets": [ 7 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_aktiviti == null)
+							return '0%';
+						else
+							return full.markah_aktiviti+'%';
+					}
+				},{          
+					"aTargets": [ 8 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_mesyuarat == null)
+							return 0;
+						else
+							return full.markah_mesyuarat+'%';
+					}
+				},{          
+					"aTargets": [ 9 ],  
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.markah_kewangan == null)
+							return 0;
+						else
+							return full.markah_kewangan+'%';
+					}
+				},{          
+					"aTargets": [ 10 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						if(full.keaktifan_markah == null)
+							return 0;
+						else
+							return full.keaktifan_markah+'%';
+					}
+				},{          
+					"aTargets": [ 11 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						let va = parseFloat($v_markah_profile);
+						let vb = parseFloat(full.markah_ajk);
+						let vc = parseFloat(full.markah_aktiviti);
+						let vd = parseFloat(full.markah_mesyuarat);
+						let ve = parseFloat(full.markah_kewangan);
+						let vf = parseFloat(full.keaktifan_markah);
+						return (va + vb + vc + vd + ve + vf).toFixed(1) + '%';
+					}
+				},{          
+					"aTargets": [ 12 ], 
+					sClass: 'text-center',
+					"mRender": function ( value, type, full )  {
+						return full.status;
+					}
+				}],
+            "order": [[ 0, 'asc' ]],
+            initComplete: function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+	    });
+		
+		$('#btn_excel').on( 'click', function () {
+			$v_state=$('#kkhq_state_id').val(); 
+			
+			$v_parlimen=0;
+			if($('#kkhq_parlimen_id').val() === null || $('#kkhq_parlimen_id').val() == '')
+			{
+				$v_parlimen == 0;
+			}else
+			{
+				$v_parlimen=$('#kkhq_parlimen_id').val();
+			}
+			
+			$v_daerah=0;
+			if($('#kkhq_daerah_id').val() === null || $('#kkhq_daerah_id').val() == '')
+			{
+				$v_daerah == 0;
+			}else
+			{
+				$v_daerah=$('#kkhq_daerah_id').val();
+			}
+			
+			$v_dun=0;
+			if($('#kkhq_dun_id').val() === null || $('#kkhq_dun_id').val() == '')
+			{
+				$v_dun == 0;
+			}else
+			{
+				$v_dun=$('#kkhq_dun_id').val();
+			}
+			
+			$v_krt=0;
+			if($('#kkhq_krt_id').val() === null || $('#kkhq_krt_id').val() == '')
+			{
+				$v_krt == 0;
+			}else
+			{
+				$v_krt=$('#kkhq_krt_id').val();
+			}
+			
+			$v_tahun=$('#kkhq_tahun').val();
+			$base_url = window.location.origin;
+			$url = $base_url+"/rt/sm11/get_excel_file/state/"+$v_state+"/parlimen/"+$v_parlimen+"/daerah/"+$v_daerah+"/dun/"+$v_dun+"/krt/"+$v_krt+"/tahun/"+$v_tahun;
+			window.location.href = $url;
+		});
+        
+		$('#btn_pdf').on( 'click', function () {
+			$v_state=$('#kkhq_state_id').val(); 
+			
+			$v_parlimen=0;
+			if($('#kkhq_parlimen_id').val() === null || $('#kkhq_parlimen_id').val() == '')
+			{
+				$v_parlimen == 0;
+			}else
+			{
+				$v_parlimen=$('#kkhq_parlimen_id').val();
+			}
+			
+			$v_daerah=0;
+			if($('#kkhq_daerah_id').val() === null || $('#kkhq_daerah_id').val() == '')
+			{
+				$v_daerah == 0;
+			}else
+			{
+				$v_daerah=$('#kkhq_daerah_id').val();
+			}
+			
+			$v_dun=0;
+			if($('#kkhq_dun_id').val() === null || $('#kkhq_dun_id').val() == '')
+			{
+				$v_dun == 0;
+			}else
+			{
+				$v_dun=$('#kkhq_dun_id').val();
+			}
+			
+			$v_krt=0;
+			if($('#kkhq_krt_id').val() === null || $('#kkhq_krt_id').val() == '')
+			{
+				$v_krt == 0;
+			}else
+			{
+				$v_krt=$('#kkhq_krt_id').val();
+			}
+			
+			$v_tahun=$('#kkhq_tahun').val();
+			$base_url = window.location.origin;
+			$url = $base_url+"/pdf/laporan_keaktifan/state/"+$v_state+"/parlimen/"+$v_parlimen+"/daerah/"+$v_daerah+"/dun/"+$v_dun+"/krt/"+$v_krt+"/tahun/"+$v_tahun;
+			window.location.href = $url;
+		});
+        
+    });
+
+</script>
+
+<script src="{{ asset('assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/js/core.js') }}"></script>
+<script src="{{ asset('assets/js/page/dialogs.js') }}"></script>
+@stop

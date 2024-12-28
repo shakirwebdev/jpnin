@@ -1,0 +1,220 @@
+<style type="text/css">
+    .page-break {
+        page-break-after: always;
+    
+    }
+    table {
+  border-collapse: collapse;
+}
+</style>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Minit Mesyuarat Bulanan</title>
+    </head>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="center"><b>{{$data_minit_mesyuarat->nama_krt}}</b><br/> MINIT MESYUARAT <b>BULANAN</b>  BIL. <b>{{$data_minit_mesyuarat->mesyuarat_bil}}/{{$data_minit_mesyuarat->tahun_mesyuarat}}</b></th>
+        </tr>
+    </table>
+    <br/><br/><br/><br/>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="20%" align="left" >Tajuk Mesyuarat</th>
+            <th width="1%" align="center" >:</th>
+            <th width="79%" align="left" > {{$data_minit_mesyuarat->mesyuarat_title}}</th>
+        </tr>
+    </table>
+    <br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="20%" align="left" >Tarikh</th>
+            <th width="1%" align="center" >:</th>
+            <th width="79%" align="left" > {{$data_minit_mesyuarat->tarikh_mesyuarat}}</th>
+        </tr>
+    </table>
+    <br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="20%" align="left" >Masa</th>
+            <th width="1%" align="center" >:</th>
+            <th width="79%" align="left" > {{$data_minit_mesyuarat->masa_mesyuarat}}</th>
+        </tr>
+    </table>
+    <br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="20%" align="left" >Tempat</th>
+            <th width="1%" align="center" >:</th>
+            <th width="79%" align="left" > {{$data_minit_mesyuarat->tempat_mesyuarat}}</th>
+        </tr>
+    </table>
+    <br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="20%" align="left" >Pengerusi</th>
+            <th width="1%" align="center" >:</th>
+            <th width="79%" align="left" > {{$data_minit_mesyuarat->pengerusi_krt}}</th>
+        </tr>
+    </table>
+    <br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="20%" align="left">Senarai Kehadiran</th>
+            <th width="1%" align="center">:</th>
+            <th width="79%" align="left"></th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="0" width="100%">
+        <thead>
+            <tr>
+                <th width="6%" align="center">Bil</th>
+                <th width="42%" align="center">Nama</th>
+                <th width="42%" align="center">Kad Pengenalan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php $no = 1; @endphp
+            @foreach($data_kehadiran as $item)
+            <tr>
+                <td width="6%" align="center">{{ $no++ }}</th>
+                <td width="42%" align="left">&nbsp; {{ $item->kehadiran_nama }}</th>
+                <td width="42%" align="center">{{ $item->kehadiran_ic }}</th>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">1. PERUTUSAN PENGERUSI</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="10" width="100%">
+        <tr>
+            <th width="100%" align="left">{!! $data_minit_mesyuarat->perutusan_pengerusi_mesyuarat !!}</th>
+        </tr>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">2. PENGESAHAN MINIT MESYUARAT YANG LALU</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="10" width="100%">
+        <tr>
+            <th width="100%" align="left">{!! $data_minit_mesyuarat->minit_yang_lalu_mesyuarat !!}</th>
+        </tr>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">3. PEMBENTANGAN PENYATA KEWANGAN RUKUN TETANGGA</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="10" width="100%">
+        <tr>
+            <th width="100%" align="left">{!! $data_minit_mesyuarat->penyata_kewangan_mesyuarat !!}</th>
+        </tr>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">4. PERKARA-PERKARA BERBANGKIT</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="0" width="100%">
+        <thead>
+            <tr>
+                <th width="6%" align="center">Bil</th>
+                <th width="42%" align="center">Perkara</th>
+                <th width="42%" align="center">Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+        @php $no = 1; @endphp
+        @foreach($data_pekara_berbangkit as $item)
+            <tr>
+                <td width="6%" align="center">{{ $no++ }}</th>
+                <td width="42%" align="left">&nbsp; {{ $item->berbangkit_perkara }}</th>
+                <td width="42%" align="center">{{ $item->berbangkit_tindakan }}</th>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">5. PEMBENTANGAN KERTAS-KERTAS KERJA (JIKA ADA) / FOKUS MESYUARAT</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="0" width="100%">
+        <thead>
+            <tr>
+                <th width="6%" align="center">Bil</th>
+                <th width="42%" align="center">Perkara</th>
+                <th width="42%" align="center">Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+        @php $no = 1; @endphp
+        @foreach($data_kertas_kerja as $item)
+            <tr>
+                <td width="6%" align="center">{{ $no++ }}</th>
+                <td width="42%" align="left">&nbsp; {{ $item->kertas_kerja_perkara }}</th>
+                <td width="42%" align="center">{{ $item->kertas_kerja_tindakan }}</th>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">6. HAL-HAL LAIN</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="0" width="100%">
+        <thead>
+            <tr>
+                <th width="6%" align="center">Bil</th>
+                <th width="42%" align="center">Perkara</th>
+                <th width="42%" align="center">Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+        @php $no = 1; @endphp
+        @foreach($data_hal_lain as $item)
+            <tr>
+                <td width="6%" align="center">{{ $no++ }}</th>
+                <td width="42%" align="left">&nbsp; {{ $item->hal_lain_perkara }}</th>
+                <td width="42%" align="center">{{ $item->hal_lain_tindakan }}</th>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    <br><br>
+    <table border="0" cellpadding="0" width="100%">
+        <tr>
+            <th width="100%" align="left">PENUTUP</th>
+        </tr>
+    </table>
+    <br>
+    <table border="1" cellpadding="10" width="100%">
+        <tr>
+            <th width="100%" align="left">{!! $data_minit_mesyuarat->penutup_mesyuarat !!}</th>
+        </tr>
+    </table>
+</html>
+
+
+
+
+
+
